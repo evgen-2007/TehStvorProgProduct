@@ -1,0 +1,91 @@
+<Window x:Class="MyDentalApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MyDentalApp" Height="650" Width="950"
+        Icon="clinic.png"
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid Background="#F0F2F5">
+        <!-- ПАНЕЛЬ АВТОРИЗАЦІЇ -->
+        <StackPanel x:Name="LoginPanel" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Visibility="Visible">
+            <Image Source="clinic.png" Height="80" Margin="0,0,0,20"/>
+            <TextBlock Text="Вхід для персоналу" FontSize="22" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+            
+            <TextBlock Text="Прізвище працівника:"/>
+            <TextBox x:Name="UserLoginBox" Margin="0,5,0,10" Height="28" VerticalContentAlignment="Center"/>
+            
+            <TextBlock Text="Пароль:"/>
+            <PasswordBox x:Name="UserPasswordBox" Margin="0,5,0,20" Height="28" VerticalContentAlignment="Center"/>
+            
+            <Button Content="Увійти" Click="LoginButton_Click" Height="35" Background="#007BFF" Foreground="White" FontWeight="Bold"/>
+            
+            <TextBlock Text="Зареєструватись" Foreground="#007BFF" Cursor="Hand" HorizontalAlignment="Center" 
+                       Margin="0,15,0,0" MouseDown="ShowRegisterPanel_Click" TextDecorations="Underline"/>
+        </StackPanel>
+
+        <!-- ПАНЕЛЬ РЕЄСТРАЦІЇ -->
+        <StackPanel x:Name="RegisterPanel" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Visibility="Collapsed">
+            <TextBlock Text="Новий працівник" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+            
+            <TextBlock Text="Прізвище:"/>
+            <TextBox x:Name="RegSur" Margin="0,5" Height="25"/>
+            <TextBlock Text="Ім'я:"/>
+            <TextBox x:Name="RegName" Margin="0,5" Height="25"/>
+            <TextBlock Text="Посада:"/>
+            <TextBox x:Name="RegPos" Margin="0,5" Height="25"/>
+            <TextBlock Text="Пароль:"/>
+            <PasswordBox x:Name="RegPass" Margin="0,5" Height="25"/>
+            
+            <Button Content="Зберегти дані" Click="SaveUser_Click" Margin="0,20,0,0" Height="35" Background="#28A745" Foreground="White" FontWeight="Bold"/>
+            
+            <TextBlock Text="Назад до входу" Foreground="Gray" Cursor="Hand" HorizontalAlignment="Center" 
+                       Margin="0,15,0,0" MouseDown="ShowLoginPanel_Click" TextDecorations="Underline"/>
+        </StackPanel>
+
+        <!-- ГОЛОВНИЙ ІНТЕРФЕЙС -->
+        <Grid x:Name="MainControl" Visibility="Collapsed" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="Додати пацієнта" Margin="0,0,0,10" Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="5"><TextBlock Text="Прізвище:"/><TextBox x:Name="TxtLastName" Width="130"/></StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Стать:"/>
+                        <ComboBox x:Name="ComboGender" Width="50" SelectedIndex="0">
+                            <ComboBoxItem Content="Ч"/>
+                            <ComboBoxItem Content="Ж"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="5"><TextBlock Text="Вік:"/><TextBox x:Name="TxtAge" Width="40"/></StackPanel>
+                    <StackPanel Margin="5"><TextBlock Text="Місто:"/><TextBox x:Name="TxtCity" Width="100"/></StackPanel>
+                    <StackPanel Margin="5"><TextBlock Text="Діагноз:"/><TextBox x:Name="TxtDiagnosis" Width="180"/></StackPanel>
+                    <Button Content="Додати" Click="AddPatient_Click" VerticalAlignment="Bottom" Margin="10,0,0,0" Width="80" Height="26" Background="#28A745" Foreground="White"/>
+                </StackPanel>
+            </GroupBox>
+
+            
+            <DataGrid x:Name="PatientsGrid" Grid.Row="1" AutoGenerateColumns="False" GridLinesVisibility="All" 
+                      VerticalGridLinesBrush="#DDD" HorizontalGridLinesBrush="#DDD" IsReadOnly="True" Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№" Binding="{Binding №}" Width="40"/>
+                    <DataGridTextColumn Header="Прізвище" Binding="{Binding Прізвище}" Width="*"/>
+                    <DataGridTextColumn Header="Стать" Binding="{Binding Стать}" Width="50"/>
+                    <DataGridTextColumn Header="Вік" Binding="{Binding Вік}" Width="50"/>
+                    <DataGridTextColumn Header="Місто" Binding="{Binding Місто}" Width="120"/>
+                    <DataGridTextColumn Header="Діагноз" Binding="{Binding Діагноз}" Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                <StackPanel Margin="5"><TextBlock Text="Фільтр віку:"/><TextBox x:Name="AgeLimitInput" Width="50"/></StackPanel>
+                <StackPanel Margin="5"><TextBlock Text="Діагноз:"/><TextBox x:Name="DiagFilterInput" Width="130"/></StackPanel>
+                <Button Content="Оновити" Click="RefreshData_Click" Margin="10,0,5,0" Width="80" Height="30" VerticalAlignment="Bottom"/>
+                <Button Content="Звіт (TXT)" Click="GenerateTxtReport_Click" Width="120" Height="30" VerticalAlignment="Bottom" Background="#17A2B8" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
