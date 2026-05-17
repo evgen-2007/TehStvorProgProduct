@@ -1,0 +1,171 @@
+<Window x:Class="MyDentalApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Стоматологічна Клініка - Облік Пацієнтів" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="600" MinWidth="900"
+        Icon="clinic.png">
+    
+    <Grid Background="#F4F6F9">
+        
+        <Border x:Name="LoginPanel" Visibility="Visible" Background="White" CornerRadius="8" 
+                VerticalAlignment="Center" HorizontalAlignment="Center" Width="340" Padding="25">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="270" ShadowDepth="3" Opacity="0.15" Color="Black"/>
+            </Border.Effect>
+            <StackPanel>
+                <Image Source="clinic.png" Width="64" Height="64" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                <TextBlock Text="Вхід для персоналу" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center" Foreground="#333"/>
+                
+                <TextBlock Text="Прізвище працівника:" FontWeight="SemiBold" Foreground="#555"/>
+                <TextBox x:Name="UserLoginBox" Margin="0,5,0,12" Height="32" VerticalContentAlignment="Center" Padding="5,0"/>
+                
+                <TextBlock Text="Пароль:" FontWeight="SemiBold" Foreground="#555"/>
+                <PasswordBox x:Name="UserPasswordBox" Margin="0,5,0,20" Height="32" VerticalContentAlignment="Center" Padding="5,0"/>
+                
+                <Button Content="Увійти" Click="LoginButton_Click" IsDefault="True" Height="38" Background="#007BFF" Foreground="White" FontWeight="Bold" BorderThickness="0">
+                    <Button.Resources>
+                        <Style TargetType="Border"><Setter Property="CornerRadius" Value="5"/></Style>
+                    </Button.Resources>
+                </Button>
+                
+                <TextBlock Text="Зареєструвати нового працівника" Foreground="#007BFF" Cursor="Hand" HorizontalAlignment="Center" 
+                           Margin="0,15,0,0" MouseDown="ShowRegisterPanel_Click" TextDecorations="Underline"/>
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="RegisterPanel" Visibility="Collapsed" Background="White" CornerRadius="8" 
+                VerticalAlignment="Center" HorizontalAlignment="Center" Width="340" Padding="25">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="270" ShadowDepth="3" Opacity="0.15" Color="Black"/>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text="Реєстрація працівника" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" HorizontalAlignment="Center" Foreground="#333"/>
+                
+                <TextBlock Text="Прізвище:" FontWeight="SemiBold" Foreground="#555"/>
+                <TextBox x:Name="RegSur" Margin="0,4,0,8" Height="30" VerticalContentAlignment="Center" Padding="5,0"/>
+                
+                <TextBlock Text="Ім'я:" FontWeight="SemiBold" Foreground="#555"/>
+                <TextBox x:Name="RegName" Margin="0,4,0,8" Height="30" VerticalContentAlignment="Center" Padding="5,0"/>
+                
+                <TextBlock Text="Посада:" FontWeight="SemiBold" Foreground="#555"/>
+                <TextBox x:Name="RegPos" Margin="0,4,0,8" Height="30" VerticalContentAlignment="Center" Padding="5,0"/>
+                
+                <TextBlock Text="Пароль:" FontWeight="SemiBold" Foreground="#555"/>
+                <PasswordBox x:Name="RegPass" Margin="0,4,0,20" Height="30" VerticalContentAlignment="Center" Padding="5,0"/>
+                
+                <Button Content="Зберегти дані" Click="SaveUser_Click" Height="38" Background="#28A745" Foreground="White" FontWeight="Bold" BorderThickness="0">
+                    <Button.Resources>
+                        <Style TargetType="Border"><Setter Property="CornerRadius" Value="5"/></Style>
+                    </Button.Resources>
+                </Button>
+                
+                <TextBlock Text="Назад до входу" Foreground="Gray" Cursor="Hand" HorizontalAlignment="Center" 
+                           Margin="0,15,0,0" MouseDown="ShowLoginPanel_Click" TextDecorations="Underline"/>
+            </StackPanel>
+        </Border>
+
+        <Grid x:Name="MainControl" Visibility="Collapsed" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox x:Name="GroupPatientForm" Header="Реєстрація нового пацієнта" Grid.Row="0" Margin="0,0,0,10" Padding="8" FontWeight="Bold" Foreground="#444">
+                <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="TxtPatientId" Visibility="Collapsed"/>
+                    
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Прізвище:" FontWeight="Normal"/>
+                        <TextBox x:Name="TxtLastName" Width="150" Height="26" VerticalContentAlignment="Center" Padding="3,0"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Стать:" FontWeight="Normal"/>
+                        <ComboBox x:Name="ComboGender" Width="60" Height="26" SelectedIndex="0" VerticalContentAlignment="Center">
+                            <ComboBoxItem Content="Ч"/>
+                            <ComboBoxItem Content="Ж"/>
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Вік:" FontWeight="Normal"/>
+                        <TextBox x:Name="TxtAge" Width="50" Height="26" VerticalContentAlignment="Center" Padding="3,0"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Місто:" FontWeight="Normal"/>
+                        <TextBox x:Name="TxtCity" Width="120" Height="26" VerticalContentAlignment="Center" Padding="3,0"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Діагноз:" FontWeight="Normal"/>
+                        <TextBox x:Name="TxtDiagnosis" Width="220" Height="26" VerticalContentAlignment="Center" Padding="3,0"/>
+                    </StackPanel>
+                    
+                    <Button x:Name="BtnSavePatient" Content="Додати пацієнта" Click="AddOrUpdatePatient_Click" VerticalAlignment="Bottom" Margin="10,5" Width="140" Height="26" Background="#28A745" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+                    <Button x:Name="BtnCancelEdit" Content="Скасувати" Click="CancelEdit_Click" Visibility="Collapsed" VerticalAlignment="Bottom" Margin="5,5" Width="80" Height="26" Background="#6C757D" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+                </WrapPanel>
+            </GroupBox>
+
+            <Border Grid.Row="1" Background="#E9ECEF" CornerRadius="4" Padding="10" Margin="0,0,0,10">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="🔍 Прізвище для пошуку: " VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#495057"/>
+                    <TextBox x:Name="TxtSearchLastName" Width="250" Height="26" VerticalContentAlignment="Center" Padding="5,0"/>
+                    
+                    <Button Content="Знайти за прізвищем" Click="SearchPatient_Click" Margin="10,0,0,0" Padding="15,0" Height="26" Background="#007BFF" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+                    <Button Content="❌ Очистити" Click="ClearSearch_Click" Margin="10,0,0,0" Padding="10,0" Height="26"/>
+                </StackPanel>
+            </Border>
+
+            <DataGrid x:Name="PatientsGrid" Grid.Row="2" AutoGenerateColumns="False" GridLinesVisibility="All" 
+                      VerticalGridLinesBrush="#E0E0E0" HorizontalGridLinesBrush="#E0E0E0" IsReadOnly="True" 
+                      Background="White" RowHeight="28" AlternatingRowBackground="#F9FAFB"
+                      SelectionChanged="PatientsGrid_SelectionChanged">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="Background" Value="#E9ECEF"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№" Binding="{Binding №}" Width="50"/>
+                    <DataGridTextColumn Header="Прізвище" Binding="{Binding Прізвище}" Width="1.5*"/>
+                    <DataGridTextColumn Header="Стать" Binding="{Binding Стать}" Width="60"/>
+                    <DataGridTextColumn Header="Вік" Binding="{Binding Вік}" Width="60"/>
+                    <DataGridTextColumn Header="Місто" Binding="{Binding Місто}" Width="140"/>
+                    <DataGridTextColumn Header="Діагноз" Binding="{Binding Діагноз}" Width="3*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid Grid.Row="3" Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="⚙️ Видалити персонал" Click="ClearUsers_Click" Grid.Column="0" 
+                        Width="150" Height="30" VerticalAlignment="Bottom" Background="#DC3545" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <StackPanel Margin="5,0">
+                        <TextBlock Text="Мін. вік:"/>
+                        <TextBox x:Name="AgeLimitInput" Width="60" Height="26" VerticalContentAlignment="Center" Padding="3,0"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="5,0">
+                        <TextBlock Text="Фільтр діагнозу:"/>
+                        <TextBox x:Name="DiagFilterInput" Width="150" Height="26" VerticalContentAlignment="Center" Padding="3,0"/>
+                    </StackPanel>
+                    
+                    <Button Content="🔄 Оновити" Click="RefreshData_Click" Margin="10,0,5,0" Width="90" Height="30" VerticalAlignment="Bottom" FontWeight="SemiBold"/>
+                    <Button Content="📄 Сформувати звіт" Click="GenerateTxtReport_Click" Width="140" Height="30" VerticalAlignment="Bottom" Background="#17A2B8" Foreground="White" FontWeight="Bold" BorderThickness="0"/>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>
